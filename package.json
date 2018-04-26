@@ -1,0 +1,26 @@
+{
+  "name": "page-transitions-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "start": "next start",
+    "build": "next build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gsap": "^1.20.4",
+    "mapbox-gl": "^0.45.0-beta.1",
+    "next": "^6.0.0-canary.6",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-transition-group": "^2.3.1"
+  },
+  "devDependencies": {
+    "node-sass": "^4.8.3",
+    "styled-jsx-plugin-sass": "^0.2.4"
+  }
+}
