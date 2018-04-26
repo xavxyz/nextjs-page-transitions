@@ -8,7 +8,7 @@ export default () => (
         sarah_edo
       </a>, built with{' '}
       <a
-        href="https://github.com/xavczen/nextjs-page-transitions"
+        href="https://github.com/sdras/page-transitions-travelapp"
         target="_blank"
       >
         Vue & Nuxt (code)
@@ -20,7 +20,7 @@ export default () => (
         xavczen
       </a>, built with{' '}
       <a
-        href="https://github.com/xavczen/nextjs-transitions-travelapp"
+        href="https://github.com/xavczen/nextjs-page-transitions"
         target="_blank"
       >
         React & Next (code)
