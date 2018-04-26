@@ -4,7 +4,7 @@
 
 👋, hello there! This repository is a rewrite with React & Next.js of [Sarah Drasner](https://twitter.com/sarah_edo)'s orginal work with [Vue & Nuxt](https://github.com/sdras/page-transitions-travelapp).
 
-Live demo: [https://travel.now.sh](https://page-transitions.now.sh)
+Live demo: [https://page-transitions.now.sh](https://page-transitions.now.sh)
 
 ### Original
 
