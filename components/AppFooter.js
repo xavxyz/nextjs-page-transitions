@@ -8,7 +8,7 @@ export default () => (
         sarah_edo
       </a>, built with{' '}
       <a
-        href="https://github.com/sdras/page-transitions-travelapp"
+        href="https://github.com/xavczen/nextjs-page-transitions"
         target="_blank"
       >
         Vue & Nuxt (code)
