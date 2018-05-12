@@ -20,7 +20,7 @@ export default () => (
         xavczen
       </a>, built with{' '}
       <a
-        href="https://github.com/xavczen/nextjs-transitions-travelapp"
+        href="https://github.com/xavczen/nextjs-page-transitions"
         target="_blank"
       >
         React & Next (code)
