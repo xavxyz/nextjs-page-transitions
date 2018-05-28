@@ -86,6 +86,7 @@ export default class MyApp extends App {
             -webkit-font-smoothing: antialiased;
             box-sizing: border-box;
             line-height: 1.2;
+            overflow-x: hidden;
           }
 
           *,
