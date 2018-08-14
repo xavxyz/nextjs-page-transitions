@@ -1,13 +1,13 @@
 {
-  "presets": [
+  "presets": ["next/babel"],
+  "plugins": [
+    "transform-flow-strip-types",
     [
-      "next/babel",
+      "styled-components",
       {
-        "styled-jsx": {
-          "plugins": [
-            "styled-jsx-plugin-sass"
-          ]
-        }
+        "ssr": true,
+        "displayName": true,
+        "preprocess": false
       }
     ]
   ]

@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "cosmos": "cosmos",
     "dev": "next",
+    "glow": "glow",
     "start": "next start",
     "build": "next build"
   },
@@ -14,13 +16,21 @@
   "dependencies": {
     "gsap": "^1.20.4",
     "mapbox-gl": "^0.45.0-beta.1",
-    "next": "^6.0.0-canary.6",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-transition-group": "^2.3.1"
+    "next": "^6.1.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-spring": "^5.6.6",
+    "react-transition-group": "^2.3.1",
+    "styled-components": "^3.4.2"
   },
   "devDependencies": {
-    "node-sass": "^4.8.3",
-    "styled-jsx-plugin-sass": "^0.2.4"
+    "babel-eslint": "^8.2.6",
+    "babel-plugin-styled-components": "^1.5.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "flow-bin": "^0.78.0",
+    "flow-typed": "^2.5.1",
+    "glow": "^1.2.2",
+    "html-webpack-plugin": "^3.2.0",
+    "react-cosmos": "4.7.0-2"
   }
 }
