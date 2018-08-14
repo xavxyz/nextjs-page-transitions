@@ -1,56 +1,59 @@
-import React from 'react';
+import * as React from 'react';
+import styled from 'styled-components';
 
 export default () => (
-  <footer>
+  <Footer>
     <div>
       Original project by{' '}
-      <a href="https://twitter.com/sarah_edo" target="_blank">
+      <Anchor href="https://twitter.com/sarah_edo" target="_blank">
         sarah_edo
-      </a>, built with{' '}
-      <a
+      </Anchor>
+      , built with{' '}
+      <Anchor
         href="https://github.com/sdras/page-transitions-travelapp"
         target="_blank"
       >
         Vue & Nuxt (code)
-      </a>
+      </Anchor>
     </div>
     <div>
       You are viewing a fork adapted by{' '}
-      <a href="https://twitter.com/xavczen" target="_blank">
+      <Anchor href="https://twitter.com/xavczen" target="_blank">
         xavczen
-      </a>, built with{' '}
-      <a
+      </Anchor>
+      , built with{' '}
+      <Anchor
         href="https://github.com/xavczen/nextjs-page-transitions"
         target="_blank"
       >
         React & Next (code)
-      </a>.
+      </Anchor>
+      .
     </div>
-    <style jsx>
-      {`
-        footer {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          padding: 10px;
-          background: black;
-          color: white;
-          text-align: center;
-          letter-spacing: 0.03em;
-          margin-top: 30px;
-          width: 100%;
-        }
-
-        a,
-        a:visited,
-        a:active {
-          color: white;
-          font-weight: bold;
-          text-decoration: none;
-          padding-left: 6px;
-        }
-      `}
-    </style>
-  </footer>
+  </Footer>
 );
+
+const Footer = styled.footer`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: black;
+  color: white;
+  text-align: center;
+  letter-spacing: 0.03em;
+  margin-top: 30px;
+  width: 100%;
+`;
+
+const Anchor = styled.a`
+  &,
+  &:visited,
+  &:active {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    padding-left: 6px;
+  }
+`;
