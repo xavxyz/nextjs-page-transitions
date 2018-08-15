@@ -39,13 +39,6 @@ injectGlobal`
     margin: 0;
   }
 
-  a,
-  a:visited,
-  a:active {
-    color: orangered;
-    text-decoration: none;
-  }
-
   button {
     margin-bottom: 10px;
     background: orangered;
