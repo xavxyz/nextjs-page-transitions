@@ -224,6 +224,9 @@ export default class AppNavTransition extends React.Component {
         </aside>
         <style jsx global>
           {`
+            /*
+              Unfortunately nesting is not supported by styled-jsx.
+
             .floating-meta-nav p {
               text-align: right;
               position: absolute;
@@ -451,6 +454,7 @@ export default class AppNavTransition extends React.Component {
                 display: none;
               }
             }
+            */
           `}
         </style>
       </div>

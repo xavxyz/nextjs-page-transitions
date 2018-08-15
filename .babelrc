@@ -1,6 +1,8 @@
 {
   "presets": ["next/babel"],
   "plugins": [
+    "macros",
+    "preval",
     "transform-flow-strip-types",
     [
       "styled-components",

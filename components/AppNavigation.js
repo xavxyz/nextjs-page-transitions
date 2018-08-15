@@ -97,21 +97,24 @@ class Header extends React.Component {
               <Link prefetch href="/">
                 <li>
                   <a className={pathname === '/' ? 'is-active' : ''}>
-                    {firstName(selectedUser.name)}'s Home
+                    {firstName(selectedUser.name)}
+                    's Home
                   </a>
                 </li>
               </Link>
               <Link prefetch href="/place">
                 <li>
                   <a className={pathname === '/place' ? 'is-active' : ''}>
-                    {firstName(selectedUser.name)}'s Places
+                    {firstName(selectedUser.name)}
+                    's Places
                   </a>
                 </li>
               </Link>
               <Link prefetch href="/group">
                 <li>
                   <a className={pathname === '/group' ? 'is-active' : ''}>
-                    {firstName(selectedUser.name)}'s Group Trips
+                    {firstName(selectedUser.name)}
+                    's Group Trips
                   </a>
                 </li>
               </Link>
@@ -143,6 +146,8 @@ class Header extends React.Component {
           </nav>
         </div>
         <style jsx global>{`
+          /*
+              Unfortunately nesting is not supported by styled-jsx.
           header {
             width: 100vw;
             height: 300px;
@@ -161,25 +166,25 @@ class Header extends React.Component {
                 rgba(0, 0, 0, 0) 0%,
                 rgba(0, 0, 0, 0) 36%,
                 rgba(0, 0, 0, 0.65) 100%
-              ); /* FF3.6-15 */
+              );
               background: -webkit-radial-gradient(
                 center,
                 ellipse cover,
                 rgba(0, 0, 0, 0) 0%,
                 rgba(0, 0, 0, 0) 36%,
                 rgba(0, 0, 0, 0.65) 100%
-              ); /* Chrome10-25,Safari5.1-6 */
+              );
               background: radial-gradient(
                 ellipse at center,
                 rgba(0, 0, 0, 0) 0%,
                 rgba(0, 0, 0, 0) 36%,
                 rgba(0, 0, 0, 0.65) 100%
-              ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+              );
               filter: progid:DXImageTransform.Microsoft.gradient(
                   startColorstr='#00000000',
                   endColorstr='#a6000000',
                   GradientType=1
-                ); /* IE6-9 fallback on horizontal gradient */
+                );
               opacity: 0.6;
             }
             &:after {
@@ -287,6 +292,7 @@ class Header extends React.Component {
             top: 8px;
             cursor: pointer;
           }
+       */
         `}</style>
       </header>
     );
