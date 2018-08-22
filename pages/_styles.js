@@ -39,17 +39,6 @@ injectGlobal`
     margin: 0;
   }
 
-  button {
-    margin-bottom: 10px;
-    background: orangered;
-    border: 0;
-    cursor: pointer;
-    padding: 6px 8px;
-    font-size: 16px;
-    color: white;
-    border-radius: 4px;
-  }
-
   h1,
   h2,
   h3,
