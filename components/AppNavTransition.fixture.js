@@ -2,24 +2,24 @@
 
 import { createFixture } from 'react-cosmos';
 import AppNavTransition from './AppNavTransition';
-import data from '../data';
-import paths from '../data/paths';
+import data from '../tools/data';
+import { linksList } from '../tools/links';
 
 const [user] = data.users;
 
-export default paths.map((path, index) =>
+export default linksList.map(([href, name], index) =>
   createFixture({
     component: AppNavTransition,
-    name: 'route: ' + path.name,
+    name: 'route: ' + name,
     props: {
-      pathname: path.pathname,
+      pathname: href,
       users: data.users,
       selectedUser: user,
       indexedUser: 0,
       addFollower: () => {},
       removeFollower: () => {},
       changeUser(number, fn) {
-        fn()
+        fn();
       },
     },
   })

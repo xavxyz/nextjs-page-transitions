@@ -1,21 +1,17 @@
 // @flow
 
 import * as React from 'react';
-import Link from './Link';
 import styled from 'styled-components';
 import { Spring, Trail } from 'react-spring';
-import type { User } from '../data/types';
+import Link from './Link';
+import { linksList } from '../tools/links';
+import firstName from '../tools/firstName';
+import type { User } from '../tools/types';
 
 type Props = {
   open: boolean,
   selectedUser: User,
 };
-
-const links = [
-  { href: '/', name: 'Home' },
-  { href: '/place', name: 'Places' },
-  { href: '/group', name: 'Group Trips' },
-];
 
 export default class AppMenuDrawer extends React.Component<Props> {
   render() {
@@ -35,14 +31,14 @@ export default class AppMenuDrawer extends React.Component<Props> {
             <Trail
               from={{ opacity: 0 }}
               to={{ opacity: 1 }}
-              keys={links.map(link => link.name)}
+              keys={linksList.map(([href]) => href)}
               delay={100}
             >
-              {links.map(link => styles => (
+              {linksList.map(([href, name]) => styles => (
                 <div style={styles}>
-                  <Link href={link.href} color="white">
+                  <Link href={href} color="white">
                     {firstName(selectedUser.name)}
-                    's {link.name}
+                    's {name}
                   </Link>
                 </div>
               ))}
@@ -52,11 +48,6 @@ export default class AppMenuDrawer extends React.Component<Props> {
       </Spring>
     );
   }
-}
-
-function firstName(input: string): string {
-  const lastIndex = input.lastIndexOf(' ');
-  return input.substring(0, lastIndex);
 }
 
 const Drawer = styled.div`

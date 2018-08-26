@@ -2,7 +2,7 @@
 
 import { createFixture } from 'react-cosmos';
 import AppMenuDrawer from './AppMenuDrawer';
-import data from '../data';
+import data from '../tools/data';
 
 const [user] = data.users;
 

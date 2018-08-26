@@ -8,7 +8,7 @@ import IconBase from './IconBase';
 import IconMail from './IconMail';
 import IconMapPin from './IconMapPin';
 import IconCalendar from './IconCalendar';
-import type { User } from '../data/types';
+import type { User } from '../tools/types';
 
 type Props = {
   users: Array<User>,

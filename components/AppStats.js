@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
-import type { User } from '../data/types';
+import type { User } from '../tools/types';
 
 type Props = {
   selectedUser: User,

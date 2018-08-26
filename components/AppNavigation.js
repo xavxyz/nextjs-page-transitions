@@ -8,12 +8,7 @@ import AppNavTransition from './AppNavTransition';
 import AppStats from './AppStats';
 import IconBase from './IconBase';
 import IconThreeDot from './IconThreeDot';
-
-const pathnames = [
-  { pathname: '/', name: 'index' },
-  { pathname: '/place', name: 'place' },
-  { pathname: '/group', name: 'group' },
-];
+import links from '../tools/links';
 
 class Header extends React.Component {
   state = {
@@ -78,15 +73,15 @@ class Header extends React.Component {
       pathname,
     } = this.props;
 
-    const pathPredicate = pathname => p => p.pathname === pathname;
+    const pathPredicate = pathname => p => p.href === pathname;
 
     return (
-      <header className={pathnames.find(pathPredicate(pathname)).name}>
+      <header className={links.find(pathPredicate(pathname)).name}>
         <TransitionGroup className="bk-img">
           <CSSTransition classNames="bk" key={pathname} timeout={400}>
             <div
               className={`header-img${1 +
-                pathnames.findIndex(pathPredicate(pathname))}`}
+                links.findIndex(pathPredicate(pathname))}`}
             />
           </CSSTransition>
         </TransitionGroup>
