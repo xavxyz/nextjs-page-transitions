@@ -47,56 +47,6 @@ injectGlobal`
     font-weight: normal;
   }
 
-  main {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-
-    @media screen and (max-width: 1030px) {
-      padding: 0 20px;
-    }
-
-    @media screen and (max-width: 600px) {
-      flex-direction: column;
-    }
-  }
-
-  .top {
-    text-transform: uppercase;
-    font-size: 14px;
-    color: #666;
-    padding: 0;
-    margin: 30px 0 0;
-  }
-
-  .places {
-    width: 60%;
-
-    @media screen and (max-width: 600px) {
-      width: 100%;
-    }
-  }
-
-  aside.sidebar {
-    width: 35%;
-    padding: 20px;
-    margin: 40px 0 0 20px;
-    background: #eee;
-    float: right;
-
-    @media screen and (max-width: 600px) {
-      width: 100%;
-      margin: 10px 0;
-    }
-  }
-
-  hr {
-    border-top: 1px solid #ccc;
-    border-bottom: none;
-    margin-top: 15px;
-  }
-
   .transition-group-wrapper {
     position: relative; /* xavier's dirty hack */
   }
@@ -117,15 +67,5 @@ injectGlobal`
   .page-enter-active {
     opacity: 1;
     position: absolute; /* xavier's dirty hack */
-  }
-
-  /* screen reader only */
-  .hidden {
-    position: absolute;
-    left: -10000px;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
   }
 `;

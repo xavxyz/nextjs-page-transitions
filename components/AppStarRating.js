@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import IconBase from './IconBase';
 import IconStarFull from './IconStarFull';
 import IconStarEmpty from './IconStarEmpty';
@@ -7,7 +8,7 @@ export default () => {
   const seqN = Array(4).fill(null);
 
   return (
-    <div>
+    <Wrapper>
       {seqN.map((_, n) => (
         <IconBase iconName="full star" iconColor="orangered" key={n}>
           <IconStarFull />
@@ -16,6 +17,10 @@ export default () => {
       <IconBase iconName="empty star" iconColor="orangered">
         <IconStarEmpty />
       </IconBase>
-    </div>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  margin: 10px 0;
+`;

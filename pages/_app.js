@@ -3,7 +3,8 @@ import React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import AppNavigation from '../components/AppNavigation';
 import AppFooter from '../components/AppFooter';
-import data from '../data';
+import data from '../tools/data';
+import './_styles';
 
 export default class MyApp extends App {
   state = {
