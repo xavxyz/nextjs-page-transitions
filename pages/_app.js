@@ -1,6 +1,7 @@
 import App, { Container } from 'next/app';
 import React from 'react';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import styled from 'styled-components';
+import { Transition } from 'react-spring';
 import AppNavigation from '../components/AppNavigation';
 import AppFooter from '../components/AppFooter';
 import data from '../tools/data';
@@ -57,22 +58,33 @@ export default class MyApp extends App {
             changeUser={this.changeUser}
             pathname={this.props.router.pathname}
           />
-          <TransitionGroup className="transition-group-wrapper">
-            <CSSTransition
-              classNames="page"
-              key={this.props.router.pathname}
-              timeout={250}
-            >
-              <Component
-                {...pageProps}
-                {...this.state}
-                selectedUser={selectedUser}
-              />
-            </CSSTransition>
-          </TransitionGroup>
-          <AppFooter />
+          <Transition
+            from={{ opacity: 0 }}
+            enter={{ opacity: 1 }}
+            leave={{ opacity: 0 }}
+            keys={this.props.router.route}
+          >
+            {style => (
+              <Positioner style={style}>
+                <Component
+                  {...pageProps}
+                  {...this.state}
+                  selectedUser={selectedUser}
+                />
+                <AppFooter />
+              </Positioner>
+            )}
+          </Transition>
         </div>
       </Container>
     );
   }
 }
+
+const Positioner = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;

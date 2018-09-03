@@ -46,26 +46,4 @@ injectGlobal`
     font-family: 'Playfair Display', serif;
     font-weight: normal;
   }
-
-  .transition-group-wrapper {
-    position: relative; /* xavier's dirty hack */
-  }
-
-  .page-enter,
-  .page-exit {
-    opacity: 0;
-    transition: all 0.25s ease;
-  }
-
-  .page-enter-active,
-  .page-exit-active {
-    transition: all 0.25s ease;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-
-  .page-enter-active {
-    opacity: 1;
-    position: absolute; /* xavier's dirty hack */
-  }
 `;
