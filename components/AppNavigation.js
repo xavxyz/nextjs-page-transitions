@@ -1,71 +1,40 @@
-import React from 'react';
-import Link from 'next/link';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+// @flow
+import * as React from 'react';
+import { Transition, Trail, Spring } from 'react-spring';
+import styled from 'styled-components';
 import TweenMax, { Sine } from 'gsap';
 
 import AppMenuDrawer from './AppMenuDrawer';
 import AppNavTransition from './AppNavTransition';
 import AppStats from './AppStats';
 import IconBase from './IconBase';
-import IconThreeDot from './IconThreeDot';
+import Link from './Link';
+import links, { linksList } from '../tools/links';
+import firstName from '../tools/firstName';
+import type { User } from '../tools/types';
 
-const pathnames = [
-  { pathname: '/', name: 'index' },
-  { pathname: '/place', name: 'place' },
-  { pathname: '/group', name: 'group' },
-];
+type Props = {
+  users: Array<User>,
+  selectedUser: User,
+  indexedUser: number,
+  pathname: string,
+  addFollower: () => void,
+  removeFollower: () => void,
+  changeUser: (number, () => void) => void,
+};
 
-class Header extends React.Component {
+type State = {
+  isMenuOpened: boolean,
+};
+
+export default class AppNavigation extends React.Component<Props, State> {
   state = {
-    menuOpened: false,
+    isMenuOpened: false,
   };
 
   toggleMenu = () => {
-    this.setState(
-      state => ({ menuOpened: !state.menuOpened }),
-      () => {
-        if (this.state.menuOpened) {
-          this.openMenu();
-        } else {
-          this.closeMenu();
-        }
-      }
-    );
+    this.setState(state => ({ isMenuOpened: !state.isMenuOpened }));
   };
-
-  openMenu() {
-    TweenMax.to('.first', 0.2, {
-      x: 18,
-      ease: Sine.easeOut,
-    });
-    TweenMax.to('.last', 0.2, {
-      x: -18,
-      ease: Sine.easeOut,
-    });
-    TweenMax.staggerTo(
-      '.first, .middle, .last',
-      0.2,
-      {
-        fill: '#7eebe6',
-        ease: Sine.easeOut,
-      },
-      0.04
-    );
-  }
-
-  closeMenu() {
-    TweenMax.to('.first', 0.2, {
-      x: 0,
-      ease: Sine.easeIn,
-    });
-    TweenMax.to('.last', 0.2, {
-      x: 0,
-      ease: Sine.easeIn,
-    });
-    TweenMax.to('.first, .middle, .last', 0.2, {
-      fill: '#fff',
-    });
-  }
 
   render() {
     const {
@@ -77,59 +46,59 @@ class Header extends React.Component {
       changeUser,
       pathname,
     } = this.props;
-
-    const pathPredicate = pathname => p => p.pathname === pathname;
+    const { isMenuOpened } = this.state;
+    const index = 1 + linksList.findIndex(([href]) => href === pathname);
 
     return (
-      <header className={pathnames.find(pathPredicate(pathname)).name}>
-        <TransitionGroup className="bk-img">
-          <CSSTransition classNames="bk" key={pathname} timeout={400}>
-            <div
-              className={`header-img${1 +
-                pathnames.findIndex(pathPredicate(pathname))}`}
-            />
-          </CSSTransition>
-        </TransitionGroup>
-
-        <div className="nav-wrapper">
-          <nav>
-            <ul>
-              <Link prefetch href="/">
-                <li>
-                  <a className={pathname === '/' ? 'is-active' : ''}>
-                    {firstName(selectedUser.name)}'s Home
-                  </a>
-                </li>
-              </Link>
-              <Link prefetch href="/place">
-                <li>
-                  <a className={pathname === '/place' ? 'is-active' : ''}>
-                    {firstName(selectedUser.name)}'s Places
-                  </a>
-                </li>
-              </Link>
-              <Link prefetch href="/group">
-                <li>
-                  <a className={pathname === '/group' ? 'is-active' : ''}>
-                    {firstName(selectedUser.name)}'s Group Trips
-                  </a>
-                </li>
-              </Link>
-            </ul>
-            <div onClick={this.toggleMenu}>
-              <IconBase
-                className="menu"
-                iconName="menu"
-                iconColor="white"
-                width="28"
-                height="28"
-              >
-                <IconThreeDot />
+      <Header className={links[pathname]}>
+        <BackgroundOverflowControl>
+          <Transition
+            from={{ opacity: 0 }}
+            enter={{ opacity: 1 }}
+            leave={{ opacity: 0, transform: 'scale(1.1) translateZ(0)' }}
+            keys={index}
+          >
+            {styles => <Background style={styles} imageIndex={index} />}
+          </Transition>
+        </BackgroundOverflowControl>
+        <Wrapper>
+          <Nav>
+            <List>
+              {linksList.map(([href, name]) => (
+                <Item key={href}>
+                  <Link href={href} active={href === pathname} color="#fff">
+                    {firstName(selectedUser.name)}
+                    's {name}
+                  </Link>
+                </Item>
+              ))}
+            </List>
+            <Menu onClick={this.toggleMenu}>
+              <IconBase iconName="menu" iconColor="#fff" width={28} height={28}>
+                {/* lol, nested declarative fun */}
+                <Trail
+                  from={{ fill: '#fff' }}
+                  to={{ fill: isMenuOpened ? '#7eebe6' : '#fff' }}
+                  keys={['first', 'middle', 'last']}
+                >
+                  {({ fill }) => (
+                    <Spring from={{ cx: 3 }} to={{ cx: isMenuOpened ? 21 : 3 }}>
+                      {({ cx }) => <circle fill={fill} cx={cx} cy={12} r="3" />}
+                    </Spring>
+                  )}
+                  {({ fill }) => <circle fill={fill} cx={12} cy={12} r="3" />}
+                  {({ fill }) => (
+                    <Spring
+                      from={{ cx: 21 }}
+                      to={{ cx: isMenuOpened ? 3 : 21 }}
+                    >
+                      {({ cx }) => <circle fill={fill} cx={cx} cy={12} r="3" />}
+                    </Spring>
+                  )}
+                </Trail>
               </IconBase>
-            </div>
-            {this.state.menuOpened && (
-              <AppMenuDrawer selectedUser={selectedUser} />
-            )}
+            </Menu>
+            <AppMenuDrawer selectedUser={selectedUser} open={isMenuOpened} />
             <AppNavTransition
               selectedUser={selectedUser}
               indexedUser={indexedUser}
@@ -140,162 +109,103 @@ class Header extends React.Component {
               pathname={pathname}
             />
             {pathname === '/' && <AppStats selectedUser={selectedUser} />}
-          </nav>
-        </div>
-        <style jsx global>{`
-          header {
-            width: 100vw;
-            height: 300px;
-            position: relative;
-            &:before {
-              content: '';
-              z-index: 10;
-              position: absolute;
-              top: 0;
-              right: 0;
-              bottom: 0;
-              left: 0;
-              background: -moz-radial-gradient(
-                center,
-                ellipse cover,
-                rgba(0, 0, 0, 0) 0%,
-                rgba(0, 0, 0, 0) 36%,
-                rgba(0, 0, 0, 0.65) 100%
-              ); /* FF3.6-15 */
-              background: -webkit-radial-gradient(
-                center,
-                ellipse cover,
-                rgba(0, 0, 0, 0) 0%,
-                rgba(0, 0, 0, 0) 36%,
-                rgba(0, 0, 0, 0.65) 100%
-              ); /* Chrome10-25,Safari5.1-6 */
-              background: radial-gradient(
-                ellipse at center,
-                rgba(0, 0, 0, 0) 0%,
-                rgba(0, 0, 0, 0) 36%,
-                rgba(0, 0, 0, 0.65) 100%
-              ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-              filter: progid:DXImageTransform.Microsoft.gradient(
-                  startColorstr='#00000000',
-                  endColorstr='#a6000000',
-                  GradientType=1
-                ); /* IE6-9 fallback on horizontal gradient */
-              opacity: 0.6;
-            }
-            &:after {
-              content: '';
-              position: absolute;
-              z-index: -1;
-              top: 0;
-              right: 0;
-              bottom: 0;
-              left: 0;
-              background: #000;
-            }
-          }
-
-          @mixin header($imgurl) {
-            background: url($imgurl) center center;
-            background-size: cover;
-            position: absolute;
-            width: 100vw;
-            height: 300px;
-          }
-
-          .header-img1 {
-            @include header('/static/header1.jpg');
-          }
-
-          .header-img2 {
-            @include header('/static/header2.jpg');
-          }
-
-          .header-img3 {
-            @include header('/static/header3.jpg');
-          }
-
-          .bk-img {
-            position: absolute;
-            width: 100vw;
-            height: 300px;
-            overflow: hidden;
-            top: 0;
-          }
-
-          .bk-enter,
-          .bk-exit {
-            opacity: 0;
-            transition: all 0.4s ease;
-          }
-
-          .bk-exit-active {
-            transform: scale(1.1) translateZ(0);
-          }
-
-          .bk-enter-active {
-            opacity: 1;
-          }
-
-          .nav-wrapper {
-            width: 100vw;
-            position: relative;
-            z-index: 1000;
-            background: rgba(4, 67, 98, 0.25);
-          }
-
-          @media screen and (max-width: 1030px) {
-            .nav-wrapper {
-              padding: 0 20px;
-            }
-          }
-
-          ul {
-            list-style: none;
-            padding: 15px 0;
-            li {
-              display: inline-block;
-              margin-right: 40px;
-            }
-            a,
-            a:active,
-            a:visited {
-              cursor: pointer;
-              color: white;
-              text-decoration: none;
-            }
-          }
-
-          @media screen and (max-width: 600px) {
-            ul {
-              display: none;
-            }
-          }
-
-          .is-active {
-            font-weight: bold;
-          }
-
-          nav {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-          }
-
-          .menu {
-            position: absolute;
-            right: 0;
-            top: 8px;
-            cursor: pointer;
-          }
-        `}</style>
-      </header>
+          </Nav>
+        </Wrapper>
+      </Header>
     );
   }
 }
 
-const firstName = input => {
-  const lastIndex = input.lastIndexOf(' ');
-  return input.substring(0, lastIndex);
-};
+const Header = styled.header`
+  width: 100vw;
+  height: 300px;
+  position: relative;
 
-export default Header;
+  &:before {
+    content: '';
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 36%,
+      rgba(0, 0, 0, 0.65) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr='#00000000',
+        endColorstr='#a6000000',
+        GradientType=1
+      );
+    opacity: 0.6;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #000;
+  }
+`;
+
+const BackgroundOverflowControl = styled.div`
+  position: absolute;
+  width: 100vw;
+  height: 300px;
+  overflow: hidden;
+  top: 0;
+`;
+
+const Background = styled.div`
+  background: url('/static/header${props =>
+    props.imageIndex}.jpg') center center;
+  background-size: cover;
+  width: 100vw;
+  height: 300px;
+  position: absolute;
+  top: 0;
+`;
+
+const Wrapper = styled.div`
+  width: 100vw;
+  position: relative;
+  z-index: 1000;
+  background: rgba(4, 67, 98, 0.25);
+
+  @media screen and (max-width: 1030px) {
+    padding: 0 20px;
+  }
+`;
+
+const Nav = styled.nav`
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+`;
+
+const List = styled.ul`
+  list-style: none;
+  padding: 15px 0;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+`;
+
+const Item = styled.li`
+  display: inline-block;
+  margin-right: 40px;
+`;
+
+const Menu = styled.div`
+  position: absolute;
+  right: 0;
+  top: 8px;
+  cursor: pointer;
+`;

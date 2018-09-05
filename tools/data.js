@@ -1,4 +1,10 @@
-export default {
+// @flow
+import type { User, Place } from './types';
+
+const data: {
+  users: Array<User>,
+  places: Array<Place>,
+} = {
   users: [
     {
       name: 'Sophia Gonzalez',
@@ -76,3 +82,5 @@ export default {
     },
   ],
 };
+
+export default data;

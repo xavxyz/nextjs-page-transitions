@@ -1,97 +1,68 @@
-import React from 'react';
-import Link from 'next/link';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { TweenMax, Sine } from 'gsap';
+// @flow
 
-export default class AppMenuDrawer extends React.Component {
-  menuRef = React.createRef();
+import * as React from 'react';
+import styled from 'styled-components';
+import { Spring, Trail } from 'react-spring';
+import Link from './Link';
+import { linksList } from '../tools/links';
+import firstName from '../tools/firstName';
+import type { User } from '../tools/types';
 
-  componentDidMount() {
-    const menuEl = this.menuRef.current;
+type Props = {
+  open: boolean,
+  selectedUser: User,
+};
 
-    TweenMax.set(menuEl, {
-      opacity: 0,
-      scale: 0,
-      transformOrigin: '100% 0%',
-    });
-
-    TweenMax.set(menuEl.childNodes, {
-      opacity: 0,
-    });
-
-    TweenMax.fromTo(
-      menuEl,
-      0.2,
-      {
-        opacity: 0,
-        scale: 0,
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        ease: Sine.easeOut,
-      }
-    );
-
-    TweenMax.staggerFromTo(
-      menuEl.childNodes,
-      0.45,
-      {
-        opacity: 0,
-      },
-      {
-        delay: 0.1,
-        opacity: 1,
-        ease: Sine.easeOut,
-      },
-      0.04
-    );
-  }
-
+export default class AppMenuDrawer extends React.Component<Props> {
   render() {
-    const { selectedUser } = this.props;
-
+    const { open, selectedUser } = this.props;
     return (
-      <div className="menudrawer" ref={this.menuRef}>
-        <Link href="/">
-          <a>{firstName(selectedUser.name)}'s Home</a>
-        </Link>
-        <br />
-        <Link href="/place">
-          <a>{firstName(selectedUser.name)}'s Places</a>
-        </Link>
-        <br />
-        <Link href="/group">
-          <a>{firstName(selectedUser.name)}'s Group Trips</a>
-        </Link>
-        <style jsx>
-          {`
-            div {
-              background: rgba(0, 0, 0, 0.8);
-              line-height: 1.8;
-              text-align: right;
-              position: absolute;
-              right: 0px;
-              top: 45px;
-              padding: 20px;
-              border-radius: 4px;
-              z-index: 10000;
-            }
-
-            a,
-            a:visited,
-            a:active {
-              cursor: pointer;
-              color: white;
-            }
-          `}
-        </style>
-      </div>
+      <Spring
+        from={{ opacity: Number(!open), scale: Number(!open) }}
+        to={{ opacity: Number(open), scale: Number(open) }}
+      >
+        {style => (
+          <Drawer
+            style={{
+              opacity: style.opacity,
+              transform: `scale(${style.scale})`,
+            }}
+          >
+            <Trail
+              from={{ opacity: 0 }}
+              to={{ opacity: 1 }}
+              keys={linksList.map(([href]) => href)}
+              delay={100}
+            >
+              {linksList.map(([href, name]) => styles => (
+                <div style={styles}>
+                  <Link href={href} color="white">
+                    {firstName(selectedUser.name)}
+                    's {name}
+                  </Link>
+                </div>
+              ))}
+            </Trail>
+          </Drawer>
+        )}
+      </Spring>
     );
   }
 }
 
-const firstName = input => {
-  const lastIndex = input.lastIndexOf(' ');
-  return input.substring(0, lastIndex);
-};
+const Drawer = styled.div`
+  transform-origin: 100% 0%;
+  background: rgba(0, 0, 0, 0.8);
+  line-height: 1.8;
+  text-align: right;
+  position: absolute;
+  right: 0px;
+  top: 45px;
+  padding: 20px;
+  border-radius: 4px;
+  z-index: 10000; /* lol */
+
+  > *:not(:last-child) {
+    margin-bottom: 6px;
+  }
+`;
