@@ -121,10 +121,9 @@ export default class AppNavTransition extends React.Component<Props, State> {
               to={{
                 svgRotation: saved ? '-360deg' : '0deg',
                 line1_scaleX: saved ? 3 : 1,
-                line1_x: saved ? 7 : 0,
+                line1_x: saved ? 12 : 0,
                 line1_rotation: saved ? -50 : 0,
-                line2_scaleY: saved ? 0.5 : 1,
-                line2_x: saved ? -2 : 0,
+                line2_x: saved ? -3 : 0,
                 line2_rotation: saved ? -45 : 0,
               }}
             >
@@ -138,7 +137,7 @@ export default class AppNavTransition extends React.Component<Props, State> {
                     style={{
                       transformOrigin: '50% 100%',
                       // prettier-ignore
-                      transform: `rotate(${styles.line1_rotation}deg) translateX(${styles.line1_x}px) scaleX(${styles.line1_scaleX})`
+                      transform: `translateX(${styles.line1_x}px) rotate(${styles.line1_rotation}deg) scaleX(${styles.line1_scaleX})`
                     }}
                     x1="0"
                     x2="24"
@@ -152,7 +151,7 @@ export default class AppNavTransition extends React.Component<Props, State> {
                     style={{
                       transformOrigin: '50% 100%',
                       // prettier-ignore
-                      transform: `rotate(${styles.line2_rotation}deg) translateX(${styles.line2_x}px) scaleY(${styles.line2_scaleY})`
+                      transform: `translateX(${styles.line2_x}px) rotate(${styles.line2_rotation}deg)`
                     }}
                     x1="12"
                     x2="12"
@@ -185,22 +184,22 @@ export default class AppNavTransition extends React.Component<Props, State> {
             {pathname === '/'
               ? () => null
               : pathname === '/group'
-                ? styles => (
-                    <FloatingMetaNav style={styles}>
-                      <IconBase iconName="map pin" iconColor="#a8dadc">
-                        <IconMapPin />
-                      </IconBase>{' '}
-                      France
-                    </FloatingMetaNav>
-                  )
-                : styles => (
-                    <FloatingMetaNav style={styles}>
-                      <IconBase iconName="calendar" iconColor="#a8dadc">
-                        <IconCalendar />
-                      </IconBase>{' '}
-                      {selectedUser.days} days traveling
-                    </FloatingMetaNav>
-                  )}
+              ? styles => (
+                  <FloatingMetaNav style={styles}>
+                    <IconBase iconName="map pin" iconColor="#a8dadc">
+                      <IconMapPin />
+                    </IconBase>{' '}
+                    France
+                  </FloatingMetaNav>
+                )
+              : styles => (
+                  <FloatingMetaNav style={styles}>
+                    <IconBase iconName="calendar" iconColor="#a8dadc">
+                      <IconCalendar />
+                    </IconBase>{' '}
+                    {selectedUser.days} days traveling
+                  </FloatingMetaNav>
+                )}
           </Transition>
         </Aside>
       </div>
