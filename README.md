@@ -14,7 +14,7 @@ Article explaining the demo is available at
 [https://css-tricks.com/native-like-animations-for-page-transitions-on-the-web](https://css-tricks.com/native-like-animations-for-page-transitions-on-the-web)
 
 Live demo at
-[https://page-transitions.com/](https://page-transitions.com/)
+[https://page-transitions-next.now.sh](https://page-transitions-next.now.sh/)
 
 See the page transitions travel app demo for a real-life use case: [https://github.com/sdras/page-transitions-travelapp](https://github.com/sdras/page-transitions-travelapp)
 
@@ -32,4 +32,4 @@ $ npm run build
 $ npm start
 ```
 
-For detailed explanation on how things work, checkout the [Next.js docs](https://github.com/zeit/next.js).
+For detailed explanation on how things work, checkout the [Next.js docs](https://github.com/vercel/next.js).
